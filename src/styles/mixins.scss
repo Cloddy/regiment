@@ -1,0 +1,464 @@
+@use "sass:meta";
+@use "sass:map";
+@use "sass:math";
+
+@import "@ktsstudio/mediaproject-style/dist/mixins";
+@import "styles/theme";
+@import "styles/consts";
+@import "styles/typography";
+@import "styles/vkuiUtils";
+@import "styles/z-indexes";
+
+@mixin commonBackground {
+  background: $bg-gradient;
+}
+
+@mixin page-flex {
+  display: flex;
+  flex-flow: column;
+}
+
+@mixin flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin page-full-height {
+  flex: 1;
+  width: 100%;
+  @include page-flex;
+}
+
+@mixin page-with-tabbar {
+  @include page-full-height;
+  padding: 5%;
+  padding-bottom: var(--vkui_internal--tabbar_height);
+}
+
+@mixin text {
+  font-size: 1.6rem;
+  line-height: 1.3;
+}
+
+@mixin subtitle {
+  @include text;
+  opacity: 0.8;
+}
+
+@mixin title {
+  @include font-secondary(900);
+  font-size: 3.2rem;
+  line-height: 120%;
+}
+
+@mixin square($side) {
+  width: $side;
+  height: $side;
+}
+
+@mixin hideScrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $lightGray1;
+    border-radius: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $blueGray;
+    border-radius: 2px;
+  }
+}
+
+@mixin animate($property...) {
+  $animatedProperty: #{""};
+
+  @if length($property) > 1 {
+    // stylelint-disable  scss/operator-no-unspaced
+    @for $i from 1 through length($property)-1 {
+      // stylelint-enable  scss/operator-no-unspaced
+      $animatedProperty: $animatedProperty nth($property, $i) $transition-normal #{", "};
+    }
+  }
+  transition: $animatedProperty nth($property, length($property)) $transition-normal;
+}
+
+@mixin centerPos {
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+@mixin centerPosF($property...) {
+  @if length($property) < 1 {
+    transform: translate(-50%, -50%);
+  } @else {
+    transform: translate(-50%, -50%) nth($property, length($property));
+  }
+  top: 50%;
+  left: 50%;
+}
+
+@mixin centerPosX {
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+@mixin centerPosY {
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+@keyframes zoom-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@mixin zoomInAnimate {
+  animation-name: zoom-in;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@mixin maxHeight($max-height) {
+  @media (max-height: $max-height) {
+    @content;
+  }
+}
+
+@mixin minHeight($height) {
+  @media (min-height: $height) {
+    @content;
+  }
+}
+
+@mixin maxWidth($height) {
+  @media (max-width: $height) {
+    @content;
+  }
+}
+
+@mixin ios {
+  :global(.ios) & {
+    @content;
+  }
+}
+
+@mixin iphone11 {
+  :global(.ios) & {
+    @include minHeight($iphone10-height) {
+      @content;
+    }
+  }
+}
+
+@mixin mobile {
+  :global(.mobile) & {
+    @content;
+  }
+}
+
+@mixin desktop {
+  :global(.desktop) & {
+    @content;
+  }
+}
+
+@mixin hover {
+  @include desktop {
+    &:hover {
+      @content;
+    }
+  }
+
+  @include mobile {
+    &:active {
+      @content;
+    }
+  }
+}
+
+@keyframes animation-fade {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@mixin backgroundImagePosition {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+@mixin backgroundImagePositionCover {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+@mixin backgroundPosition {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+@mixin link {
+  display: block;
+  position: relative;
+  @include square(max-content);
+}
+
+@keyframes load {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(0.7);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@mixin loader {
+  animation: load 5s linear infinite;
+}
+
+@mixin focus {
+  border-color: $blueGray;
+}
+
+@mixin borderFocus {
+  @include animate(border-color);
+
+  &:focus {
+    @include focus;
+  }
+}
+
+@mixin border {
+  border: 1px solid transparent;
+  border-radius: 1.2rem;
+}
+
+@mixin borderError {
+  border: 1px solid $red;
+}
+
+@mixin placeholderStyles {
+  @include font-primary;
+  font-size: inherit;
+  line-height: inherit;
+  color: $textGray3;
+  transition: inherit;
+}
+
+/* stylelint-disable */
+@mixin placeholder {
+  &::input-placeholder {
+    @include placeholderStyles;
+  }
+  &::placeholder {
+    @include placeholderStyles;
+  }
+  &:placeholder {
+    @include placeholderStyles;
+  }
+  &:input-placeholder {
+    @include placeholderStyles;
+  }
+}
+
+@mixin commonPlaceholderStyles {
+  &::input-placeholder {
+    @include placeholderStyles;
+    @content;
+  }
+  &::placeholder {
+    @include placeholderStyles;
+    @content;
+  }
+  &:placeholder {
+    @include placeholderStyles;
+    @content;
+  }
+  &:input-placeholder {
+    @include placeholderStyles;
+    @content;
+  }
+}
+/* stylelint-enable */
+
+@mixin input-text {
+  @include font-primary;
+
+  // значение должно быть минимум 16px, иначе на айфонах будет зумиться экран к полю ввода
+  font-size: max(16px, 1.6rem);
+  line-height: 1.3;
+  color: $textGray;
+}
+
+@mixin input {
+  appearance: none;
+  user-select: auto;
+  @include input-text;
+  background-color: $lightGray;
+}
+
+@mixin label {
+  display: inline-block;
+  margin-bottom: 0.4rem;
+
+  @include font-primary;
+  font-size: 1.2rem;
+  line-height: 1.4;
+  color: $textGray;
+  pointer-events: none;
+}
+
+@mixin errorText {
+  color: $red;
+  font-size: 1.4rem;
+}
+
+@mixin shadow {
+  position: fixed;
+  background-color: $modalFade;
+  height: 100vh;
+  width: 100vw;
+}
+
+@mixin whiteContainer {
+  position: relative;
+  width: 100%;
+
+  background-color: $white;
+  border-radius: $size-medium;
+}
+
+@mixin fadeAndTransform($enterDirectionX, $enterDirectionY, $exitDirectionX, $exitDirectionY) {
+  &-enter {
+    opacity: 0;
+    transform: translate3d($enterDirectionX, $enterDirectionY, 0);
+
+    &-active {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  &-exit {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+
+    &-active {
+      opacity: 0;
+      transform: translate3d($exitDirectionX, $exitDirectionY, 0);
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.7);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0.7);
+  }
+}
+
+@mixin pulseAnimation($iteration-count: infinite) {
+  animation-name: pulse;
+  animation-duration: 2.5s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: $iteration-count;
+  animation-fill-mode: forwards;
+}
+
+@mixin dropdown() {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transform: translate(0, 100%);
+  background: $white;
+  box-shadow: 0 10px 27px rgba(109, 78, 42, 0.3);
+  border-radius: 4px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.5s ease,
+    opacity 0.5s linear;
+}
+
+@mixin backgroundMixin($red-bg: true) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $bg-gradient;
+
+  @if $red-bg {
+    background: rgba($cedar, 0.8);
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 165rem;
+      height: 236rem;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(
+        50% 50% at 50% 50%,
+        rgba(212, 90, 65, 0.8) 0%,
+        rgba(203, 77, 51, 0) 100%
+      );
+    }
+  }
+}
+
+@mixin cropMultiLineText($lines: 2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* stylelint-disable-next-line value-no-vendor-prefix */
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+}

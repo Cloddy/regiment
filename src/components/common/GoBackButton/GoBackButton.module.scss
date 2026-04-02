@@ -1,0 +1,32 @@
+@import "styles/mixins";
+
+.go-back-button {
+  // для увеличения области клика
+  --padding: 0.4rem;
+  --size: #{$size-medium};
+
+  position: absolute;
+  top: calc($size-standard - var(--padding));
+  left: calc($size-standard - var(--padding));
+
+  @include square(calc(var(--size) + var(--padding) * 2));
+  padding: var(--padding);
+
+  @include animate(opacity, transform);
+
+  @include hover {
+    cursor: pointer;
+    opacity: 0.8;
+    transform: translateX(-2px);
+  }
+
+  & > svg {
+    @include square(100%);
+    color: $darkBlack;
+  }
+
+  @include desktop {
+    --padding: 0.6rem;
+    --size: #{$size-big};
+  }
+}

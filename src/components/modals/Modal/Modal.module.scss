@@ -1,0 +1,98 @@
+@import "styles/mixins";
+
+.modal {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  &__background {
+    @include backgroundMixin($red-bg: false);
+    @include animate(opacity);
+
+    &_with-blur {
+      backdrop-filter: blur(16px);
+
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  &__body {
+    position: absolute;
+    @include centerPos;
+    padding: $size-medium $size-standard-2;
+    border-radius: 3.2rem;
+    width: calc(100% - $size-standard-2 * 2);
+    min-height: 24rem;
+    @include animate(opacity, transform);
+
+    display: flex;
+    flex-direction: column;
+
+    @include desktop {
+      max-width: 45rem;
+    }
+
+    &_with-background {
+      @include backgroundImageCover("assets/img/common/modal-bg.png");
+      background-color: $white;
+      background-position: bottom;
+    }
+
+    &_full-width {
+      width: 100%;
+      padding: $size-standard-2 1.8rem;
+    }
+
+    @include desktop {
+      max-height: 95vh;
+      overflow-y: auto;
+      @include hideScrollbar;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+
+    .logo {
+      margin-bottom: 2.5rem;
+      width: 17.5rem;
+      height: 7.2rem;
+      @include backgroundImageContain("assets/img/common/modal-logo.png");
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: $size-standard;
+    }
+
+    .close-button {
+      position: absolute;
+      top: $size-big;
+      right: $size-big;
+      width: 1.8rem;
+      height: 1.8rem;
+      color: $black;
+      cursor: pointer;
+      @include animate(opacity);
+
+      @include hover {
+        opacity: 0.8;
+      }
+
+      @include mobile {
+        top: $size-standard-2;
+        right: $size-standard-2;
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+// Конфиг шрифтов задан в файле tools/fonts/config.ts и используется конфиге webpack для встраивания в index.html на этапе сборки
+// Здесь достаточно задать только набор font-family для переиспользования в стилях
+
+$font-primary: "Golos Text", sans-serif;
+$font-secondary: "Merriweather", serif;
+
+$font-roboto: "Roboto", sans-serif;
+$font-roboto-serif: "Roboto Serif", serif;
+
+/// Задает основной шрифт: **Golos Text**
+///
+/// @param {number} $weight
+///   Допустимые значения 400, 500, 600
+@mixin font-primary($weight: 400) {
+  font-family: $font-primary;
+  font-weight: $weight;
+}
+
+/// Задает дополнительный шрифт: **Merriweather**
+///
+/// @param {number} $weight
+///   Допустимые значения 400, 700, 900
+@mixin font-secondary($weight: 400) {
+  font-family: $font-secondary;
+  font-weight: $weight;
+}
+
+@mixin font-roboto($weight: 400) {
+  font-family: $font-roboto;
+  font-weight: $weight;
+}
+
+@mixin font-roboto-serif($weight: 600) {
+  font-family: $font-roboto-serif;
+  font-weight: $weight;
+}
+
+@mixin modal-title {
+  margin-bottom: $size-standard;
+
+  @include font-secondary(900);
+  font-size: 2rem;
+  line-height: 1.2;
+  text-align: center;
+  color: $textGray;
+
+  @include desktop {
+    font-size: 2.2rem;
+  }
+}
+
+@mixin modal-description {
+  margin-bottom: 2.4rem;
+
+  @include font-primary(400);
+  font-size: 1.6rem;
+  line-height: 1.25;
+  text-align: center;
+  color: $textGray2;
+
+  @include desktop {
+    margin-bottom: 3.4rem;
+    font-size: 1.8rem;
+  }
+}

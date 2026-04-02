@@ -1,0 +1,31 @@
+@import "styles/mixins";
+
+.title {
+  margin-bottom: 2.4rem;
+
+  @include font-secondary(900);
+  font-size: 2.8rem;
+  line-height: 1.1;
+  color: $brandRed;
+}
+
+.button {
+  margin-bottom: $size-standard-2;
+
+  &__icon {
+    @include square(2rem);
+  }
+}
+
+.heroes-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: $size-small;
+}
+
+.dev-buttons {
+  display: flex;
+  gap: $size-small;
+  margin-bottom: $size-standard-2;
+}

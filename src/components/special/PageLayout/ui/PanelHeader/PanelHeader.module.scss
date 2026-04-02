@@ -1,0 +1,40 @@
+@import "styles/mixins";
+
+:global(.vkuiPanel__in),
+:global(.vkuiPanelHeader__in) {
+  --vkui--size_panel_header_height--regular: #{$header-height};
+
+  @include desktop {
+    --vkui--size_panel_header_height--regular: #{$header-height-desktop};
+  }
+}
+
+.panel-header {
+  position: relative;
+  z-index: $header-z-index;
+
+  & :global(.vkuiPanelHeader__in) {
+    @include sidePadding($size-standard);
+    background-color: transparent;
+  }
+
+  & :global(.vkuiPanelHeader__before) {
+    align-items: center;
+    flex-grow: 0;
+
+    @include ios {
+      padding-left: 0;
+    }
+  }
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  height: 4.8rem;
+}
+
+.logo {
+  height: 100%;
+}

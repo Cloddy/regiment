@@ -1,0 +1,26 @@
+@import "styles/mixins";
+
+.vk-panel {
+  :global(.vkuiPanel__in) {
+    padding: 0; // убираем отступы safe-area. убрать, если дизайн на vkui и отступы не помешают
+  }
+
+  &_fixed-height {
+    overflow: hidden;
+  }
+}
+
+// если фон однотонный, можно его не фиксировать и определить его у .vkuiPanel__in выше
+.background {
+  position: fixed;
+
+  @include backgroundPosition;
+
+  @include commonBackground;
+}
+
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,86 @@
+@import "styles/mixins";
+
+.input-wrapper {
+  position: relative;
+
+  &_with-bottom-margin {
+    margin-bottom: $size-standard;
+  }
+
+  .cross {
+    @include square(2rem);
+    border-radius: 50%;
+    background-color: rgba($black, 0.2);
+    @include animate(background-color);
+    position: absolute;
+    @include centerPosY;
+    right: 1.8rem;
+    cursor: pointer;
+
+    @include hover {
+      background-color: rgba($black, 0.4);
+    }
+
+    &::after {
+      content: "";
+      @include square(1rem);
+      position: absolute;
+      @include centerPos;
+      @include backgroundImagePosition;
+      background-image: url("~assets/img/form/inputCross.svg");
+    }
+  }
+}
+
+.input {
+  position: relative;
+  width: 100%;
+  height: $input-height;
+  line-height: $input-height;
+  @include input;
+  @include border;
+  @include borderFocus;
+  @include placeholder;
+  @include autoCropText;
+  padding: 1.3rem 4.8rem 1.3rem 1.6rem;
+
+  display: flex;
+  align-items: center;
+
+  &_with-cross {
+    padding-right: 5.2rem;
+  }
+
+  @include desktop {
+    height: $input-height-desktop;
+    line-height: $input-height-desktop;
+    padding-right: 1.6rem;
+
+    &_with-cross {
+      padding-right: 3.6rem;
+    }
+  }
+
+  &_error {
+    @include borderError;
+  }
+
+  &_disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+.label {
+  @include label;
+
+  & .required {
+    font: inherit;
+    color: $brandRed;
+  }
+}
+
+.error {
+  @include errorText;
+  margin: 0 1.6rem 0.8rem;
+}

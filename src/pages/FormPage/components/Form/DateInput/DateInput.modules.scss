@@ -1,0 +1,23 @@
+@import "styles/mixins";
+
+.date-input-wrapper {
+  position: relative;
+  display: grid;
+
+  @include mobile {
+    grid-template-rows: repeat(3, auto);
+    grid-row-gap: 1.6rem;
+  }
+
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 1.2rem;
+  }
+}
+
+.error {
+  @include errorText;
+  position: absolute;
+  top: 100%;
+  left: 1.6rem;
+}

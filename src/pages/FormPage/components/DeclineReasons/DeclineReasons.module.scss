@@ -1,0 +1,41 @@
+@import "styles/mixins";
+
+.reasons {
+  @include sidePadding(2rem);
+  margin-bottom: $size-medium;
+}
+
+.reasons-wrapper {
+  width: 100%;
+  padding: 1.6rem 2rem;
+  border-radius: 1.2rem;
+  background-color: $lightPink;
+
+  @include desktop {
+    padding: 2rem 2.4rem;
+  }
+}
+
+.title {
+  margin-bottom: $size-small;
+  @include font-primary(600);
+  font-size: 1.8rem;
+  line-height: 1.3;
+  color: $red;
+}
+
+.reasons-list {
+  padding: 0;
+  padding-left: 2.4rem;
+}
+
+.text {
+  @include font-primary(400);
+  font-size: 1.6rem;
+  line-height: 1.4;
+  color: $textGray;
+
+  &.try-again {
+    margin-top: $size-small;
+  }
+}

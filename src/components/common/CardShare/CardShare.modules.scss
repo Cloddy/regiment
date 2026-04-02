@@ -1,0 +1,137 @@
+@import "styles/consts";
+@import "styles/mixins";
+
+.root {
+  position: relative;
+  border-radius: 0.4rem;
+  padding: 0.6rem 0.4rem;
+  max-width: 12rem;
+  opacity: 0.6;
+  background: $lightGray1;
+  cursor: pointer;
+
+  @include animate(opacity);
+
+  @include hover {
+    opacity: 0.9;
+  }
+
+  &:active {
+    opacity: 1;
+  }
+
+  @include mobile {
+    max-width: 100%;
+    margin: 0 auto $size-standard;
+  }
+
+  &_chosen {
+    opacity: 1 !important;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+    border: 0.1rem solid $lightGray;
+    box-sizing: border-box;
+    padding: 0.4rem;
+    background: $white;
+    overflow: hidden;
+
+    @include mobile {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .wrapper {
+      position: relative;
+      height: 100%;
+      width: 100%;
+
+      @include mobile {
+        width: auto;
+      }
+    }
+
+    .photo {
+      height: 12.2rem;
+      width: 9.2rem;
+      @include backgroundImagePosition;
+      mask-size: contain;
+      position: relative;
+      margin: 0 auto;
+
+      @include mobile {
+        height: 11.4rem;
+        width: 8.4rem;
+      }
+
+      mask-image: url("~assets/img/account/photoMask.svg");
+    }
+
+    .band {
+      display: block;
+      position: absolute;
+      width: 9.1rem;
+      bottom: 0;
+      @include centerPosX;
+
+      @include mobile {
+        width: 8.4rem;
+      }
+    }
+
+    .name {
+      position: relative;
+      font-size: 1.2rem;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+      margin: 0 0.4rem;
+
+      @include mobile {
+        font-size: 1.3rem;
+        line-height: 1.6rem;
+        text-align: left;
+        margin: 0 0.8rem;
+        word-break: break-word;
+      }
+
+      &_last {
+        font-weight: 500;
+        text-transform: uppercase;
+        color: $orange;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.2rem;
+      }
+
+      &_first {
+        color: $black;
+        font-size: 1.1rem;
+        line-height: 1.4rem;
+        min-height: 2.4rem;
+      }
+    }
+
+    .check {
+      right: 0.9rem;
+      top: 0.4rem;
+      opacity: 0;
+      @include animate(opacity);
+
+      &_chosen {
+        opacity: 1 !important;
+      }
+
+      @include mobile {
+        @include square(3.6rem);
+        bottom: 0.5rem;
+        right: 0.5rem;
+        top: auto;
+      }
+    }
+  }
+}

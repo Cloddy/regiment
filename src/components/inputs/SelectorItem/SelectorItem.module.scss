@@ -1,0 +1,29 @@
+@import "styles/mixins";
+
+.selector-item {
+  position: relative;
+  @include text;
+  font-weight: 500;
+  margin-top: 0.8rem;
+  padding: 0.2rem 0;
+  color: $black;
+
+  &_selected {
+    color: $blueGray;
+  }
+
+  &_empty {
+    color: $gray-94;
+  }
+
+  @include animate(color, opacity);
+
+  @include hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }
+
+  @include desktop {
+    padding: 0.6rem 0;
+  }
+}

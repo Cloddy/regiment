@@ -1,0 +1,27 @@
+@import "styles/mixins";
+
+.loader-page {
+  color: $textGray4;
+  background: $beige;
+
+  :global(.vkuiPanel__in) {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.title {
+  margin-top: auto;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.progress {
+  margin-top: auto;
+  margin-bottom: 50px;
+  width: 80%;
+}

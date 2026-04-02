@@ -1,0 +1,35 @@
+@import "styles/mixins";
+
+.error {
+  @include square(100%);
+  min-height: 100vh;
+
+  padding: $size-standard-2;
+  background-color: $beige;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  @include desktop {
+    @include sidePadding(15vw);
+  }
+}
+
+.title {
+  @include font-primary;
+  @include text;
+
+  color: $textGray4;
+  font-weight: 500;
+  margin-bottom: 2.4rem;
+}
+
+.button {
+  margin: 0 auto;
+
+  @include desktop {
+    max-width: 40vw;
+  }
+}

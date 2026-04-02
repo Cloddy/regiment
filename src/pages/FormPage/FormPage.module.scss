@@ -1,0 +1,23 @@
+@import "styles/mixins";
+
+.form-page {
+  @include page-flex;
+}
+
+.title {
+  @include sidePadding(2rem);
+  margin-bottom: $size-medium;
+
+  @include font-secondary(900);
+  font-size: 3.2rem;
+  line-height: 1.25;
+  color: $brandRed;
+}
+
+.buttons {
+  margin-top: $size-big;
+
+  display: flex;
+  flex-direction: column;
+  gap: $size-standard;
+}

@@ -1,0 +1,10 @@
+@import "styles/mixins";
+
+.title {
+  @include modal-title;
+  margin-bottom: 1.2rem;
+}
+
+.text {
+  @include modal-description;
+}

@@ -1,0 +1,132 @@
+@import "@ktsstudio/mediaproject-style/dist/animations";
+@import "~styles/mixins";
+@import "~styles/consts";
+
+$local-line-width: 18rem;
+$local-mobile-line-width: 48vw;
+
+$local-progress-width: 4.4rem;
+
+@keyframes progress-t {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(calc(#{$local-line-width} - #{$local-progress-width}), 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes progress-mobile-t {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(calc(#{$local-mobile-line-width} - #{$local-progress-width}), 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@mixin progressAnimate {
+  animation-name: progress-t;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  @include mobile {
+    animation-name: progress-mobile-t;
+  }
+}
+
+.root {
+  position: fixed;
+  z-index: 10000;
+  overflow: hidden;
+  @include appearAnimation;
+
+  &_background {
+    position: fixed;
+    inset: 0;
+    background: rgba($beige, 0.9);
+
+    .loader {
+      position: absolute;
+      @include centerPos;
+    }
+  }
+
+  &_default {
+    width: max-content;
+    height: max-content;
+    @include centerPos;
+
+    .loader {
+      position: relative;
+    }
+  }
+
+  &_dark {
+    .line {
+      background: $orange;
+    }
+
+    .progress {
+      background: $white !important;
+    }
+  }
+}
+
+.loader {
+  width: max-content;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  position: relative;
+  @include font-primary;
+  @include text;
+  text-align: center;
+  color: $textGray4;
+  margin-bottom: $size-standard;
+  font-weight: 500;
+
+  @include desktop {
+    font-size: 2rem;
+  }
+}
+
+.line {
+  position: relative;
+  width: $local-line-width;
+  height: 0.4rem;
+  background: $white;
+  border-radius: 100px;
+
+  @include mobile {
+    width: $local-mobile-line-width;
+  }
+
+  .progress {
+    position: relative;
+    height: 0.4rem;
+    border-radius: inherit;
+    @include backgroundImageCover("assets/img/common/loader-bg.svg");
+
+    &_moving {
+      width: $local-progress-width;
+      @include progressAnimate;
+    }
+  }
+}
+
+:global(.overflow-scrolling) {
+  overflow-y: hidden !important;
+}

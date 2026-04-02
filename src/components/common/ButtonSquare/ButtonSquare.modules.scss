@@ -1,0 +1,50 @@
+@import "styles/consts";
+@import "styles/mixins";
+
+.button {
+  position: absolute;
+  @include square($size-standard-2);
+  border: 0.6px solid $lightGray;
+  box-sizing: border-box;
+  background: $white;
+  @include animate(background);
+
+  &_default {
+    right: 0;
+  }
+
+  &_can-click {
+    cursor: pointer;
+
+    @include hover {
+      background: $orange;
+      .button__icon {
+        color: $white;
+      }
+    }
+
+    &:active {
+      background: $orange;
+      .button__icon {
+        color: $white;
+      }
+    }
+  }
+
+  @include mobile {
+    @include square(3.6rem);
+  }
+
+  &__icon {
+    display: block;
+    position: absolute;
+    @include centerPos;
+    color: $orange;
+    @include square(1.1rem);
+    @include animate(color);
+
+    @include mobile {
+      @include square($size-standard);
+    }
+  }
+}

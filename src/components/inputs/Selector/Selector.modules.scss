@@ -1,0 +1,138 @@
+@import "styles/mixins";
+
+.content {
+  // не дает инпуту увеличивать ширину больше 1fr в grid-контейнере
+  min-width: 0;
+
+  cursor: pointer;
+  position: relative;
+  @include animate(opacity);
+  align-self: stretch;
+
+  &_disabled {
+    pointer-events: none;
+
+    & > .input-wrapper {
+      opacity: 0.6;
+    }
+  }
+
+  &_with-bottom-margin {
+    margin-bottom: $size-standard-2;
+  }
+}
+
+.input-wrapper {
+  position: relative;
+  @include animate(opacity);
+}
+
+.input {
+  width: 100%;
+  height: $input-height;
+  padding: 1.3rem 4.8rem 1.3rem 1.6rem;
+
+  cursor: pointer;
+  user-select: none;
+
+  display: flex;
+  align-items: center;
+
+  @include input;
+  @include border;
+  @include borderFocus;
+  @include animate(color, border);
+
+  @include desktop {
+    height: $input-height-desktop;
+    padding-right: 3.6rem;
+  }
+
+  &_focused {
+    @include focus;
+  }
+
+  &_valued {
+    @include autoCropText;
+  }
+
+  &_error {
+    @include borderError;
+  }
+
+  .value {
+    @include autoCropText;
+  }
+
+  .placeholder {
+    @include placeholderStyles;
+  }
+}
+
+.icon {
+  position: absolute;
+  @include square(2.4rem);
+  right: 1.6rem;
+  @include centerPosY;
+  @include animate(opacity, transform);
+  pointer-events: none;
+  color: $textGray2;
+
+  @include hover {
+    opacity: 0.8;
+  }
+
+  .content_visible & {
+    transform: translate(0, -50%) rotate(180deg);
+  }
+}
+
+.label {
+  @include label;
+}
+
+.list {
+  position: absolute;
+  width: 100%;
+  background: $white;
+  border: 0.1rem solid $lightGrayTransparent;
+  box-sizing: border-box;
+  box-shadow:
+    0 0 0.1rem rgba(10, 31, 68, 0.1),
+    0 0.6rem 1.2rem rgba(10, 31, 68, 0.12);
+  border-radius: 0.8rem;
+  z-index: 10;
+  overflow-x: hidden;
+  transition:
+    max-height 0.5s ease,
+    opacity 0.5s linear;
+  opacity: 0;
+  max-height: 0;
+
+  &_scrolled {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: auto;
+
+    @include scrollbar;
+  }
+
+  .content_visible & {
+    opacity: 1;
+    margin-bottom: $size-standard;
+    max-height: 18rem;
+
+    @include mobile {
+      z-index: 2;
+    }
+  }
+
+  &__inner {
+    width: 100%;
+    padding: 0 1.6rem 1.4rem;
+  }
+}
+
+.error {
+  @include errorText;
+  margin: 0 1.6rem 0.8rem;
+}

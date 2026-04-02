@@ -1,0 +1,59 @@
+@import "styles/mixins";
+
+.checkbox {
+  position: relative;
+  margin: 0 0 $size-standard;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &_disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  &__input {
+    position: relative;
+    appearance: none;
+    @include square(2.4rem);
+    margin-right: 1.6rem;
+    flex-shrink: 0;
+    border-radius: 0.4rem;
+    border: 1px solid $textGray;
+    cursor: pointer;
+
+    @include animate(background-color);
+
+    &::before {
+      content: "";
+      @include square(1.4rem);
+      background-image: url("assets/img/common/check.svg");
+      @include backgroundImagePosition;
+      position: absolute;
+      @include centerPos;
+      opacity: 0;
+      @include animate(opacity);
+    }
+
+    &:checked {
+      background-color: $darkBlue;
+      border-color: $darkBlue;
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__label {
+    @include font-primary;
+    font-size: 1.6rem;
+    line-height: 1.4;
+    color: $darkBlue;
+    cursor: pointer;
+
+    & a {
+      color: $textGray2;
+      text-decoration: underline;
+    }
+  }
+}

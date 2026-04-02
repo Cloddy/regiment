@@ -1,0 +1,17 @@
+.vkuiPanelHeader--ios .vkuiPanelHeader__in {
+  height: calc(
+    var(--vkui--size_panel_header_height--regular) + var(--vkui_internal--safe_area_inset_top)
+  ) !important;
+}
+
+.vkuiPanelHeaderButton--ios .vkuiIcon,
+.vkuiPanelHeaderButton--android .vkuiIcon {
+  width: auto !important;
+  height: auto !important;
+}
+
+// на планшетах по умолчанию прозрачный фон, и во время анимации переключения панелей это видно
+.vkuiPanel .vkuiPanel__in,
+.vkuiPanel::after {
+  background-color: var(--vkui--color_background_content) !important;
+}

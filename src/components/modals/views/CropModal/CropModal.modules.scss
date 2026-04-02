@@ -1,0 +1,25 @@
+@import "styles/mixins";
+
+.title {
+  @include modal-title;
+  margin-bottom: $size-standard-2;
+}
+
+.content {
+  width: 100%;
+  position: relative;
+  margin-bottom: $size-standard-2;
+
+  &_error {
+    margin-bottom: 1.2rem;
+  }
+}
+
+.error {
+  margin-top: $size-small;
+
+  @include font-primary;
+  font-size: 1.2rem;
+  color: $red;
+  text-align: center;
+}

@@ -1,0 +1,73 @@
+@import "styles/mixins";
+@import "styles/vkuiGlobal";
+
+* {
+  // переопределение переменных vkui
+  // убрать переопределение цветов и установку цветов текста и фона, если нужно подтягивать тему ВК
+  --vkui--color_text_primary: #{$white};
+  --vkui--color_background_content: #{$bg-gradient};
+  --vkui--font_family_base: #{$font-primary};
+  @include font-primary;
+
+  margin: 0;
+  box-sizing: border-box;
+  user-select: none;
+  outline: none;
+  border: none;
+  text-decoration: none;
+
+  text-size-adjust: none; /* отключаем увеличение текста на мобильных устройствах */
+  -webkit-overflow-scrolling: touch; /* для плавной прокрутки в старых версиях ios */
+  -webkit-font-smoothing: antialiased; /* сглаживание шрифтов */
+  -webkit-tap-highlight-color: transparent; /* отключаем выделение зажатых элементов в некоторых мобильных браузерах, чтобы не конфликтовало со стилями :active */
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input,
+textarea {
+  user-select: text;
+}
+
+button {
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+// элемент, который скроллится
+.vkuiAppRoot {
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-x: hidden !important;
+  @include hideScrollbar;
+
+  @include commonBackground;
+  color: $white;
+}

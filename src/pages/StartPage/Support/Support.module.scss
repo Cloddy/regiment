@@ -1,0 +1,33 @@
+@import "~styles/mixins";
+@import "~styles/consts";
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  background: $lightGray2;
+  padding: 1rem 1.2rem;
+  border-radius: 0.8rem;
+  max-width: calc(100% - 2 * $start-page-side-padding);
+  align-self: center;
+  width: 100%;
+}
+
+.text {
+  @include font-roboto;
+
+  font-size: 1.1rem;
+  line-height: 1.3rem;
+  color: $black1;
+}
+
+.logo-sber {
+  @include backgroundImageContain("assets/img/footer/sber.svg");
+  width: 5.2rem;
+  height: 1.6rem;
+  margin: 0 2.8rem 0 auto;
+}
+
+.logo-vk {
+  @include backgroundImageContain("assets/img/footer/vk.svg");
+  @include square(2rem);
+}

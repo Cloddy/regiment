@@ -1,0 +1,21 @@
+@import "styles/mixins";
+
+.snackbar {
+  --vkui--color_icon_positive: #{$green};
+  --vkui--color_icon_negative: #{$red};
+
+  & :global(.vkuiSnackbar__content-text) {
+    @include font-primary;
+    color: $textGray;
+  }
+
+  &__close-button {
+    color: $brown;
+  }
+}
+
+.button {
+  margin-top: 1.2rem;
+  padding: 0 1.2rem;
+  color: $white;
+}

@@ -1,0 +1,11 @@
+@import "styles/mixins";
+
+.title {
+  @include modal-title;
+  font-size: 2.2rem;
+  line-height: 1.4;
+}
+
+.description {
+  @include modal-description;
+}

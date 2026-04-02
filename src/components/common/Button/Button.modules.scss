@@ -1,0 +1,92 @@
+@import "styles/mixins";
+
+$gradient: radial-gradient(
+    214.29% 214.29% at 50.31% -114.29%,
+    #ad4230 0%,
+    rgba(173, 66, 48, 0) 100%
+  ),
+  radial-gradient(42.9% 98.96% at 50.31% 100%, #ff8d30 0%, #e14942 100%);
+
+@mixin size {
+  height: 4.8rem;
+}
+
+.button {
+  border-radius: 1.2rem;
+  text-align: center;
+  font-weight: 500;
+  cursor: pointer;
+  @include animate(color, background-color, border, opacity);
+  width: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &_default {
+    padding: 0 3.3rem;
+  }
+
+  &_filled {
+    background: $gradient;
+
+    @include hover {
+      opacity: 0.8;
+    }
+
+    @include desktop {
+      &:active {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &_bordered {
+    color: $textGray2;
+    background-color: $white;
+    border: 1px solid $lightBlue2;
+
+    @include hover {
+      background-color: $lilac;
+      border-color: transparent;
+    }
+
+    @include desktop {
+      &:active {
+        background-color: $lilac;
+        border-color: transparent;
+      }
+    }
+  }
+
+  &_cant-click {
+    pointer-events: none;
+  }
+
+  &_disabled {
+    opacity: 0.4;
+  }
+
+  &_small-size {
+    height: 4.4rem;
+    font-size: 1.6rem;
+  }
+
+  &_standard-size {
+    @include size;
+    font-size: 1.8rem;
+  }
+
+  &_large-size {
+    @include size;
+    font-size: 2rem;
+  }
+
+  &_stretched {
+    width: 100%;
+  }
+
+  &__before {
+    display: flex;
+    margin-right: $size-small;
+  }
+}

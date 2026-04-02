@@ -1,0 +1,74 @@
+@import "~styles/consts";
+@import "~styles/mixins";
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 3.2rem 2rem;
+  border-radius: 1.2rem 1.2rem 0 0;
+  border: 1px solid rgba($white, 0.6);
+
+  @include backgroundImageCover("assets/img/footer/footer-bg.jpg");
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: $size-standard-2;
+  margin-bottom: $size-standard;
+}
+
+.sber {
+  width: 5.9rem;
+  height: 1.6rem;
+
+  @include backgroundImageContain("assets/img/footer/sber.svg");
+}
+
+.sber-mobile {
+  width: 12.8rem;
+  height: 1.6rem;
+
+  @include backgroundImageContain("assets/img/footer/sber-mobile.svg");
+}
+
+.vk {
+  @include square(2rem);
+
+  @include backgroundImageContain("assets/img/footer/vk.svg");
+}
+
+.phone {
+  @include font-primary(400);
+
+  font-size: 1.8rem;
+  line-height: 2.4rem;
+  color: $textGray2;
+  margin-bottom: $size-small-2;
+
+  &-link {
+    text-decoration: underline;
+
+    @include animate(opacity);
+
+    @include hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.policy {
+  @include font-primary(400);
+
+  color: $textGray2;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  text-decoration: underline;
+
+  @include animate(opacity);
+
+  @include hover {
+    opacity: 0.8;
+  }
+}

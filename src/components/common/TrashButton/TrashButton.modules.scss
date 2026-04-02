@@ -1,0 +1,29 @@
+@import "styles/mixins";
+
+.trash-button {
+  @include square(3.2rem);
+  border-radius: 50%;
+  background-color: rgba($darkBlack, 0.32);
+  @include animate(background-color);
+  position: absolute;
+  cursor: pointer;
+
+  display: flex;
+  @include flex-center;
+
+  @include hover {
+    background-color: rgba($darkBlack, 0.5);
+  }
+
+  @include desktop {
+    @include square(4.2rem);
+  }
+
+  & > svg {
+    @include square(1.6rem);
+
+    @include desktop {
+      @include square(2rem);
+    }
+  }
+}

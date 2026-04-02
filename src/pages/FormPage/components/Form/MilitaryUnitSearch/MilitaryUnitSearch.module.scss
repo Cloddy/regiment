@@ -1,0 +1,127 @@
+@import "styles/mixins";
+
+.form-item {
+  padding: 0;
+
+  // лейбл
+
+  :global(.vkuiFormItem__top) {
+    padding: 0;
+  }
+
+  :global(.vkuiFormItemTop__label) {
+    @include label;
+  }
+
+  // обводка инпута
+
+  :global(.vkuiFormField__border) {
+    @include border;
+    @include animate(border-color);
+  }
+  :global(.vkuiFormField--focus-visible.vkuiFormField--focus-visible .vkuiFormField__border) {
+    @include focus;
+  }
+}
+
+.custom-select {
+  // поле ввода
+
+  :global(.vkuiCustomSelectInput) {
+    height: $input-height;
+    border-radius: 1.2rem;
+    background-color: $lightGray;
+
+    @include desktop {
+      height: $input-height-desktop;
+    }
+  }
+
+  :global(.vkuiFormField__content),
+  :global(.vkuiCustomSelectInput__el) {
+    height: 100%;
+  }
+
+  :global(.vkuiCustomSelectInput__container),
+  :global(.vkuiCustomSelectInput__el) {
+    padding-left: 1.6rem;
+  }
+
+  // текст в инпуте
+  :global(.vkuiCustomSelectInput__title.vkuiText.vkuiTypography--accent),
+  :global(.vkuiCustomSelectInput__el) {
+    @include input-text;
+  }
+
+  // плейсхолдер
+  :global(
+      .vkuiCustomSelectInput--empty .vkuiCustomSelectInput__title.vkuiText.vkuiTypography--accent
+    ) {
+    @include placeholderStyles;
+    font-size: max(16px, 1.6rem);
+  }
+
+  &.disabled {
+    &:global(.vkuiCustomSelect) {
+      cursor: default;
+    }
+  }
+
+  // иконка стрелочки
+
+  :global(.vkuiFormField__after) {
+    min-width: 4.8rem;
+    padding-right: 1.6rem;
+    justify-content: flex-end;
+
+    @include desktop {
+      min-width: 5.2rem;
+    }
+  }
+
+  .icon {
+    @include square(2.4rem);
+    @include animate(opacity, transform);
+    color: $textGray2;
+
+    @include hover {
+      opacity: 0.8;
+    }
+  }
+
+  :global(.vkuiCustomSelect--pop-down) {
+    .icon {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+// список опций
+
+.list {
+  padding: 0 1.6rem 1.4rem;
+}
+
+:global(.vkuiCustomSelectDropdown--bottom) {
+  border-radius: 0.8rem;
+}
+
+:global(.vkuiCustomScrollView__box) {
+  @include scrollbar;
+}
+
+:global(.vkuiCustomSelectDropdown__fetching) {
+  padding: 1.6rem 0;
+}
+
+// плейсхолдер для списка
+
+.empty {
+  padding: 1.2rem 0 0;
+
+  @include font-primary;
+  font-size: 1.6rem;
+  line-height: 1.4;
+  color: $textGray3;
+  text-align: center;
+}

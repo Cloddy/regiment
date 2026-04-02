@@ -1,0 +1,171 @@
+@import "styles/mixins";
+
+.hero-card {
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: $size-standard;
+
+  @include backgroundImageCover("assets/img/common/modal-bg.png");
+  background-position: bottom;
+  background-color: $white;
+  border-radius: 1.2rem;
+
+  @include animate(box-shadow);
+
+  @include desktop {
+    background-position: center 70%;
+
+    &:hover {
+      box-shadow: 0 4px 20px rgba($darkBlack, 0.1);
+    }
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: $size-standard;
+  color: $textGray;
+
+  &__photo {
+    @include square(6.2rem);
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__status {
+    height: fit-content;
+    padding: 0.4rem 1.2rem;
+
+    @include font-primary(500);
+    font-size: 1.4rem;
+    border-radius: 10rem;
+
+    &_rejected {
+      color: $red;
+      background-color: $lightPink2;
+    }
+
+    &_under_review {
+      color: $textGray2;
+      background-color: $lightBlue3;
+    }
+
+    &_approved {
+      color: $green;
+      background-color: $lightGreen;
+    }
+  }
+}
+
+.text-wrapper {
+  display: flex;
+  gap: $size-small;
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
+
+    &__name {
+      @include font-secondary(700);
+      font-size: 1.6rem;
+      line-height: 1.5;
+      color: $textGray;
+      margin-bottom: 0.4rem;
+      @include cropMultiLineText(3);
+      hyphens: auto;
+    }
+
+    &__dates {
+      @include font-primary(400);
+      font-size: 1.4rem;
+      line-height: 1.4;
+      color: $textGray2;
+    }
+  }
+
+  .edit-button {
+    $padding: 0.6rem;
+    $size: 2rem;
+
+    position: relative;
+    top: -$padding;
+    right: -$padding;
+
+    @include square(calc($size + $padding * 2));
+    padding: $padding;
+    flex-shrink: 0;
+    color: $textGray2;
+
+    & > svg {
+      @include square($size);
+    }
+
+    @include animate(opacity);
+
+    @include hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
+  }
+}
+
+.military-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  &__branch {
+    @include font-primary(400);
+    font-size: 1.4rem;
+    color: $textGray3;
+  }
+}
+
+.problem {
+  padding: 1.6rem 2rem 1.6rem 1.2rem;
+  display: flex;
+  gap: $size-small;
+
+  background-color: $lightPink2;
+  border-radius: 1.6rem;
+
+  &__icon {
+    @include square(2.4rem);
+    flex-shrink: 0;
+    color: $red;
+  }
+
+  &__text {
+    @include font-primary(400);
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: $textGray;
+  }
+}
+
+.share-button {
+  font-size: 1.6rem;
+}
+
+.dev-buttons {
+  position: absolute;
+  top: 30%;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .dev-button {
+    padding: 0.4rem 1.2rem;
+    font-size: 1rem;
+    background-color: $lightBlue3;
+    border-radius: 10rem;
+    border: 1px solid $blueGray;
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,10 @@
+@import "styles/mixins";
+
+.title {
+  @include modal-title;
+  font-weight: 700;
+}
+
+.description {
+  @include modal-description;
+}

@@ -1,0 +1,39 @@
+@import "styles/mixins";
+
+.wrapper {
+  width: 100%;
+  margin-bottom: $size-standard-2;
+
+  & :global(.cropper-drag-box),
+  & :global(.cropper-wrap-box) {
+    border-radius: 1.5rem;
+  }
+
+  & :global(.cropper-view-box) {
+    outline: 1px dashed $white;
+  }
+
+  & :global(.cropper-point) {
+    @include square(0.8rem);
+    background-color: $darkRed;
+    opacity: 1;
+
+    &:global(.point-se) {
+      @include square(1.5rem);
+    }
+  }
+
+  & :global(.cropper-line) {
+    background-color: transparent;
+  }
+}
+
+.cropper {
+  max-height: 31.4rem;
+  display: flex;
+  justify-content: center;
+
+  @include desktop {
+    max-height: 22.4rem;
+  }
+}

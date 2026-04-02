@@ -1,0 +1,37 @@
+@import "styles/mixins";
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  gap: $size-standard;
+}
+
+.control {
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  @include font-primary(500);
+  font-size: 1.4rem;
+  line-height: 1.5rem;
+  color: $textGray2;
+
+  @include animate(opacity);
+  cursor: pointer;
+
+  @include hover {
+    opacity: 0.7;
+  }
+
+  & > svg {
+    @include square(2rem);
+    color: inherit;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
+}

@@ -1,0 +1,46 @@
+@import "styles/mixins";
+
+.page-layout {
+  @include page-full-height;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden visible;
+  height: 100%;
+  @include hideScrollbar;
+
+  &.bg-image {
+    @include backgroundImageCover("assets/img/common/bg-image.jpg");
+
+    @include desktop {
+      @include backgroundImageCover("assets/img/common/bg-image-desktop.jpg");
+    }
+  }
+
+  @include desktop {
+    @include sidePadding(7vw);
+  }
+}
+
+.page-content {
+  position: relative;
+  flex: 1;
+  z-index: $page-content-z-index;
+
+  &.with-top-padding {
+    padding-top: 3.2rem;
+  }
+
+  &.with-bottom-padding {
+    padding-bottom: $size-medium;
+
+    @include desktop {
+      padding-bottom: $size-big;
+    }
+  }
+
+  &.with-side-padding {
+    @include sidePadding($size-standard-2);
+  }
+}

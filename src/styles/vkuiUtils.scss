@@ -1,0 +1,14 @@
+@mixin headerCenterElement($restTransform...) {
+  top: calc(
+    var(--vkui_internal--safe_area_inset_top) + var(--vkui--size_panel_header_height--regular) / 2
+  );
+  transform: translateY(-50%) join($restTransform, (), space);
+}
+
+@function calc-top-padding($extraPadding: "0px") {
+  @return calc(var(--vkui_internal--safe_area_inset_top) + #{$extraPadding});
+}
+
+@function calc-bottom-padding($extraPadding: "0px") {
+  @return calc(var(--vkui_internal--safe_area_inset_bottom) + #{$extraPadding});
+}

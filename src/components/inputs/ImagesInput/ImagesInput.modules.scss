@@ -1,0 +1,225 @@
+@import "styles/mixins";
+
+.root {
+  width: 100%;
+  max-width: 25.2rem;
+  padding: 0.8rem 0.8rem 4.4rem;
+  margin: 0 auto;
+
+  background-color: $lightGray1;
+  border-radius: 1.2rem;
+
+  &__error {
+    @include errorText;
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+}
+
+// обертка для фото или контейнера для кнопки загрузки
+.input-wrapper {
+  position: relative;
+  @include square(100%);
+  @include aspectRatio(3, 4);
+  margin-bottom: 2.5rem;
+
+  border-radius: 0.4rem;
+
+  &_error {
+    outline: 1px solid $red;
+    outline-offset: 2px;
+  }
+}
+
+.photo {
+  @include square(100%);
+  object-fit: cover;
+  border-radius: inherit;
+
+  filter: drop-shadow(1px 0 0 rgba(51, 51, 51, 0.08));
+}
+
+.trash-button {
+  right: 1.2rem;
+  top: 1.2rem;
+}
+
+// обертка для кнопки загрузки и требований к фото
+.input {
+  padding: 0 2rem;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  @include flex-center;
+
+  background-color: $lightGray;
+  border: 1px dashed $gray-94;
+  border-radius: inherit;
+
+  &_disabled {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  &_error {
+    border-color: $red;
+  }
+
+  &__icon {
+    @include square(2.4rem);
+    color: $textGray;
+    margin-bottom: $size-small;
+
+    @include desktop {
+      @include square(4.4rem);
+    }
+  }
+
+  &__title {
+    margin-bottom: 2rem;
+
+    @include font-primary;
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: $textGray;
+
+    @include desktop {
+      margin-bottom: 2.5rem;
+      font-size: 1.8rem;
+    }
+  }
+
+  // требования к фото
+  &__requirements {
+    display: flex;
+    flex-direction: column;
+    @include flex-center;
+    gap: 0.6rem;
+
+    & > p {
+      @include font-primary;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: $textGray2;
+      text-align: center;
+    }
+
+    @include desktop {
+      max-width: 20rem;
+
+      & > p {
+        font-size: 1.3rem;
+      }
+    }
+  }
+
+  &__label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include square(100%);
+
+    cursor: pointer;
+
+    &_disabled {
+      pointer-events: none;
+    }
+  }
+}
+
+// данные ветерана
+.data {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  @include flex-center;
+  gap: 0.2rem;
+
+  &__wrapper {
+    max-width: 100%;
+  }
+
+  .last-name {
+    @include font-secondary(900);
+    font-size: 1.6rem;
+    line-height: 1.5;
+    color: $darkRed2;
+    text-align: center;
+    @include cropMultiLineText(2);
+    hyphens: auto;
+    text-transform: uppercase;
+  }
+
+  .first-name {
+    @include font-primary(400);
+    font-size: 1.6rem;
+    line-height: 1.25;
+    color: $totalBlack;
+    text-align: center;
+    @include cropMultiLineText(3);
+    hyphens: auto;
+  }
+
+  .line {
+    margin: 1.2rem auto;
+    width: 100%;
+    height: 1px;
+    background-color: $ochre;
+  }
+
+  .dates {
+    @include font-secondary(400);
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: $gray-666;
+    text-align: center;
+  }
+
+  .military-branch {
+    position: absolute;
+    top: -4.4rem;
+    @include centerPosX;
+
+    width: max-content;
+    min-width: max(14.6rem, 65%);
+    min-height: 3.2rem;
+    max-height: 4rem;
+    padding: 0 1rem;
+    @include aspectRatio(146, 32);
+    @include backgroundImageContain("assets/img/form/branch-bg.svg");
+
+    display: flex;
+    @include flex-center;
+
+    & > p {
+      @include font-primary;
+      font-size: 1.4rem;
+      line-height: 1.2;
+      text-align: center;
+      color: transparent;
+      background-clip: text;
+      background-image: $brown-gradient;
+      -webkit-text-stroke: 0.2px $brown;
+
+      @include cropMultiLineText(2);
+    }
+  }
+
+  @include desktop {
+    .last-name,
+    .first-name {
+      font-size: 1.8rem;
+    }
+
+    .dates {
+      font-size: 1.6rem;
+    }
+
+    .military-branch {
+      top: -5rem;
+      max-height: 4.2rem;
+    }
+  }
+}
