@@ -4,7 +4,7 @@ import { checkVkPlatform } from '@ktsstudio/mediaproject-vk';
 import { observable, makeObservable } from 'mobx';
 
 import { getMaxWebApp } from 'bridge/maxWebApp';
-import { getMiniAppRuntime } from 'bridge/runtime';
+import { isMaxShell } from 'bridge/runtime';
 import { API_URL } from 'config/api/apiUrl';
 import { userInWhitelist } from 'config/whitelist';
 import { PlatformType } from 'store/types';
@@ -58,7 +58,7 @@ export class AppParamsStore extends BaseAppParamsStore {
       this.isMvk = false;
     }
 
-    if (getMiniAppRuntime() === 'max') {
+    if (isMaxShell()) {
       const maxUserId = getMaxWebApp()?.initDataUnsafe?.user?.id;
 
       if (maxUserId != null && !Number.isNaN(Number(maxUserId))) {

@@ -15,7 +15,7 @@ const hasVkLaunchParams = (): boolean => {
 };
 
 /**
- * Признаки запуска внутри MAX (скрипт max-web-app.js может подгружаться и вне клиента).
+ * Признаки сессии MAX в URL / initData.
  * @see https://dev.max.ru/docs/webapps/bridge
  */
 const hasMaxLaunchContext = (): boolean => {
@@ -36,18 +36,44 @@ const hasMaxLaunchContext = (): boolean => {
 };
 
 /**
+ * Запуск внутри клиента MAX (включая web: у MAX задаётся `WebApp.platform === 'web'`).
+ * Не считаем MAX, если в URL параметры VK Mini App — приоритет у VK.
+ */
+export const isMaxShell = (): boolean => {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  if (hasVkLaunchParams()) {
+    return false;
+  }
+
+  const webApp = getMaxWebApp();
+
+  if (!webApp?.ready) {
+    return false;
+  }
+
+  return (
+    hasMaxLaunchContext() ||
+    Boolean(webApp.initData) ||
+    Boolean(webApp.platform) ||
+    Boolean(webApp.version) ||
+    Boolean(webApp.initDataUnsafe?.user)
+  );
+};
+
+/**
  * Определяет среду запуска.
- * MAX: `window.WebApp` + стартовые параметры / данные сессии MAX.
- * VK: WebView или типичные query-параметры мини-приложения.
+ * MAX: клиент подставил `window.WebApp` с platform/version/initData (в т.ч. web).
+ * VK: WebView или query vk_app_id / vk_user_id.
  */
 export const getMiniAppRuntime = (): MiniAppRuntime => {
   if (typeof window === 'undefined') {
     return 'browser';
   }
 
-  const webApp = getMaxWebApp();
-
-  if (webApp?.ready && hasMaxLaunchContext()) {
+  if (isMaxShell()) {
     return 'max';
   }
 

@@ -17,6 +17,8 @@ export type MaxWebAppUnsafeUser = {
 
 export type MaxWebApp = {
   ready: () => void;
+  /** Строка стартовых данных для валидации на бэке. */
+  initData?: string;
   initDataUnsafe?: {
     user?: MaxWebAppUnsafeUser;
     query_id?: string;
