@@ -3,6 +3,7 @@ import { AppRoot, View, Root as VKRoot, SplitLayout } from '@vkontakte/vkui';
 import { observer } from 'mobx-react';
 import * as React from 'react';
 
+import { getMiniAppRuntime } from 'bridge/runtime';
 import { ErrorFallback, VKPanel, LoaderPage, Snackbar } from 'components/special';
 import { ROUTES } from 'config/routes/routes';
 import { useDateTimer } from 'store/globals/timer';
@@ -10,11 +11,12 @@ import { useHistoryStore, useRootStoreInit, useUIStore } from 'store/hooks';
 import { useUpdateViewSettings } from 'utils/hooks/useUpdateViewSettings';
 import { useSetHistory, useVKViews } from 'utils/router';
 
-const RootLayoutPage: React.FC = () => {
-  useSetHistory();
-  useUpdateViewSettings();
+type RootLayoutContentProps = {
+  safeAreaInsets: React.ComponentProps<typeof AppRoot>['safeAreaInsets'];
+};
 
-  const vkBridgeInsets = useInsets();
+const RootLayoutContent = observer((props: RootLayoutContentProps) => {
+  const { safeAreaInsets } = props;
   const views = useVKViews();
   const { appState } = useRootStoreInit();
   const { popout } = useUIStore();
@@ -37,10 +39,8 @@ const RootLayoutPage: React.FC = () => {
   }
 
   return (
-    // про режимы подключения: https://vkcom.github.io/VKUI/#/Modes
-    // параметры mode="embedded" scroll="contain" используем для работы свайпбэка
     <SplitLayout popout={popout.node}>
-      <AppRoot mode="embedded" scroll="contain" safeAreaInsets={vkBridgeInsets ?? undefined}>
+      <AppRoot mode="embedded" scroll="contain" safeAreaInsets={safeAreaInsets}>
         <VKRoot activeView={activeView}>
           {views.map(([view, viewPanels]) => (
             <View
@@ -66,6 +66,26 @@ const RootLayoutPage: React.FC = () => {
       </AppRoot>
     </SplitLayout>
   );
+});
+
+const RootLayoutPageVk: React.FC = () => {
+  useSetHistory();
+  useUpdateViewSettings();
+
+  const vkBridgeInsets = useInsets();
+
+  return <RootLayoutContent safeAreaInsets={vkBridgeInsets ?? undefined} />;
 };
 
-export default observer(RootLayoutPage);
+const RootLayoutPageMax: React.FC = () => {
+  useSetHistory();
+  useUpdateViewSettings();
+
+  return <RootLayoutContent safeAreaInsets={undefined} />;
+};
+
+const RootLayoutPage: React.FC = () => {
+  return getMiniAppRuntime() === 'max' ? <RootLayoutPageMax /> : <RootLayoutPageVk />;
+};
+
+export default RootLayoutPage;

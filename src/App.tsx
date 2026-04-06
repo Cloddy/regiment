@@ -3,10 +3,11 @@ import vkBridge, {
   parseURLSearchParamsForGetLaunchParams,
 } from '@vkontakte/vk-bridge';
 import { useAdaptivity, useAppearance } from '@vkontakte/vk-bridge-react';
-import { ConfigProvider, AdaptivityProvider } from '@vkontakte/vkui';
+import { ConfigProvider, AdaptivityProvider, useAdaptivityWithJSMediaQueries } from '@vkontakte/vkui';
 import * as React from 'react';
 import { MemoryRouter, BrowserRouter } from 'react-router-dom';
 
+import { getMiniAppRuntime } from 'bridge/runtime';
 import { app } from 'config/app';
 import { RootLayoutPage } from 'pages/RootLayoutPage';
 import { useAppParamsStore } from 'store/hooks';
@@ -15,10 +16,10 @@ import { transformVKBridgeAdaptivity } from 'utils/vk';
 type RouterType = typeof MemoryRouter | typeof BrowserRouter;
 
 /**
- * Интеграция с VK Mini Apps
+ * VK Mini Apps: адаптивность и тема из VK Bridge.
  * @see https://vkcom.github.io/VKUI/#/integrations-vk-mini-apps
  */
-const App: React.FC = () => {
+const AppVk: React.FC = () => {
   const { isOdr, search } = useAppParamsStore();
 
   const Router: RouterType = isOdr ? MemoryRouter : BrowserRouter;
@@ -26,7 +27,6 @@ const App: React.FC = () => {
   const vkAppearance = useAppearance() ?? app.defaultAppearance;
   const appearance = app.withVkAppearance ? vkAppearance : app.defaultAppearance;
   const { vk_platform: vkPlatform } = parseURLSearchParamsForGetLaunchParams(search);
-  // Конвертируем значения из VK Bridge в параметры AdaptivityProvider
   const vkBridgeAdaptivityProps = transformVKBridgeAdaptivity(useAdaptivity());
 
   return (
@@ -44,6 +44,34 @@ const App: React.FC = () => {
       </AdaptivityProvider>
     </ConfigProvider>
   );
+};
+
+/**
+ * MAX: без VK Bridge React — адаптивность через media queries VKUI.
+ */
+const AppMax: React.FC = () => {
+  const { isOdr } = useAppParamsStore();
+  const Router: RouterType = isOdr ? MemoryRouter : BrowserRouter;
+  const adaptivityProps = useAdaptivityWithJSMediaQueries();
+
+  return (
+    <ConfigProvider
+      appearance={app.defaultAppearance}
+      isWebView
+      transitionMotionEnabled
+      hasCustomPanelHeaderAfter={!app.isInternal}
+    >
+      <AdaptivityProvider {...adaptivityProps}>
+        <Router>
+          <RootLayoutPage />
+        </Router>
+      </AdaptivityProvider>
+    </ConfigProvider>
+  );
+};
+
+const App: React.FC = () => {
+  return getMiniAppRuntime() === 'max' ? <AppMax /> : <AppVk />;
 };
 
 export default App;

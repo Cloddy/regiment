@@ -1,12 +1,14 @@
 import { captureVKBridgeException } from '@ktsstudio/mediaproject-stores';
 import bridge from '@vkontakte/vk-bridge';
 
+import { getMiniAppRuntime } from 'bridge/runtime';
+
 // разрешение уведомлений в вк
 export const requestVKNotifications = async (
   onSuccess: () => Promise<void>,
   isOk: boolean
 ): Promise<void> => {
-  if (isOk) {
+  if (isOk || getMiniAppRuntime() === 'max') {
     return;
   }
 

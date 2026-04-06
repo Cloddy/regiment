@@ -1,5 +1,4 @@
-import { captureVKBridgeException } from '@ktsstudio/mediaproject-stores';
-import bridge from '@vkontakte/vk-bridge';
+import { setVkSwipeBackEnabled } from 'bridge/swipeBack';
 import { Action } from 'history';
 import { action, computed, makeObservable, observable, reaction } from 'mobx';
 import { NavigateFunction, Location } from 'react-router';
@@ -88,17 +87,7 @@ export class HistoryStore implements IGlobalStore {
     reaction(
       () => this._isFirstPanel,
       (isFirst: boolean) => {
-        const method = isFirst ? 'VKWebAppEnableSwipeBack' : 'VKWebAppDisableSwipeBack';
-
-        if (bridge.supports(method)) {
-          bridge.send(method).catch((error) => {
-            captureVKBridgeException({
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-              error,
-              url: method,
-            });
-          });
-        }
+        setVkSwipeBackEnabled(isFirst);
       }
     );
   }

@@ -1,6 +1,7 @@
 import { captureVKBridgeException } from '@ktsstudio/mediaproject-stores';
 import vkBridge from '@vkontakte/vk-bridge';
 
+import { getMiniAppRuntime } from 'bridge/runtime';
 import { ENDPOINTS } from 'config/api/endpoints';
 import { ApiRequest } from 'store/models/ApiRequest';
 
@@ -84,6 +85,10 @@ export class StatsStore {
   };
 
   sendVkStat = async (event: StatEventType, dataToSend: string) => {
+    if (getMiniAppRuntime() !== 'vk') {
+      return;
+    }
+
     try {
       // @ts-ignore
       const result = await vkBridge.send('VKWebAppSendCustomEvent', {
@@ -254,6 +259,10 @@ export class StatsStore {
 
   sendPixel = async (pixel: PixelType) => {
     if (this._rootStore.appParamsStore.isOk) {
+      return;
+    }
+
+    if (getMiniAppRuntime() !== 'vk') {
       return;
     }
 

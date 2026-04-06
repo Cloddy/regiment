@@ -8,7 +8,8 @@ import { createRoot } from 'react-dom/client';
 import '@vkontakte/vkui/dist/vkui.css';
 
 import { RootStoreProvider, rootStore } from 'store/globals/root';
-import { initSentry, initEruda, initVKWebApp, initMarkup } from 'utils/init';
+import { initMiniApp } from 'bridge/initMiniApp';
+import { initSentry, initEruda, initMarkup } from 'utils/init';
 
 import './styles/global.scss';
 
@@ -17,7 +18,7 @@ import App from './App';
 const startApp = () => {
   initEruda(rootStore.appParamsStore.isDev);
   initSentry(rootStore.appParamsStore);
-  initVKWebApp(rootStore.appParamsStore);
+  initMiniApp(rootStore.appParamsStore);
   fixActive();
 
   requestAnimationFrame(() => {

@@ -34,7 +34,8 @@
       "styles/*": ["styles/*"],
       "types/*": ["types/*"],
       "utils/*": ["utils/*"],
-      "entities/*": ["entities/*"]
+      "entities/*": ["entities/*"],
+      "bridge/*": ["bridge/*"]
     }
   },
   "include": ["src"]
