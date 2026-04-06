@@ -19,12 +19,12 @@ export class TimerStore {
   private readonly _rootStore: RootStoreType;
 
   /** 6 мая 23:59 по Москве */
-  may7Date = dayjs.utc(new Date(2025, 4, 6, 23, 59, 0)).utcOffset(3);
+  may7Date = dayjs.utc(new Date(2026, 4, 6, 23, 59, 0)).utcOffset(3);
 
   isMay7Came = false;
 
   /** 9 мая по местному времени */
-  may9Date = new Date(2025, 4, 9, 0, 0, 0);
+  may9Date = new Date(2026, 4, 9, 0, 0, 0);
 
   isMay9Came = false;
 
