@@ -3,7 +3,7 @@ import { findGetParameter } from '@ktsstudio/mediaproject-utils';
 import { checkVkPlatform } from '@ktsstudio/mediaproject-vk';
 import { observable, makeObservable } from 'mobx';
 
-import { getMaxWebApp, mapMaxPlatformToAppPlatform } from 'bridge/maxWebApp';
+import { getMaxWebApp } from 'bridge/maxWebApp';
 import { getMiniAppRuntime } from 'bridge/runtime';
 import { API_URL } from 'config/api/apiUrl';
 import { userInWhitelist } from 'config/whitelist';
@@ -65,7 +65,7 @@ export class AppParamsStore extends BaseAppParamsStore {
         this.userId = Number(maxUserId);
       }
 
-      this.platform = mapMaxPlatformToAppPlatform(getMaxWebApp()?.platform);
+      this.platform = 'mobile_iphone' as PlatformType;
       const maxDevice = checkVkPlatform(this.platform);
 
       if (maxDevice) {

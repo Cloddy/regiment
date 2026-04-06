@@ -1,5 +1,3 @@
-import type { PlatformType } from 'store/types';
-
 /** Минимальная типизация MAX Bridge (`window.WebApp`). */
 export type MaxWebAppDeviceStorage = {
   setItem: (key: string, value: string) => Promise<void> | void;
@@ -34,18 +32,4 @@ export const getMaxWebApp = (): MaxWebApp | undefined => {
   }
 
   return (window as Window & { WebApp?: MaxWebApp }).WebApp;
-};
-
-/** Платформа MAX → ближайший `PlatformType` для существующей логики. */
-export const mapMaxPlatformToAppPlatform = (maxPlatform?: string): PlatformType => {
-  const mapped =
-    maxPlatform === 'ios'
-      ? 'mobile_iphone'
-      : maxPlatform === 'android'
-        ? 'mobile_android'
-        : maxPlatform === 'desktop'
-          ? 'desktop_web'
-          : 'mobile_web';
-
-  return mapped as PlatformType;
 };
