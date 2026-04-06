@@ -3,12 +3,9 @@ import { findGetParameter } from '@ktsstudio/mediaproject-utils';
 import { checkVkPlatform } from '@ktsstudio/mediaproject-vk';
 import { observable, makeObservable } from 'mobx';
 
-import { getMaxWebApp } from 'bridge/maxWebApp';
-import { isMaxShell } from 'bridge/runtime';
 import { API_URL } from 'config/api/apiUrl';
 import { userInWhitelist } from 'config/whitelist';
 import { PlatformType } from 'store/types';
-import { checkOkPlatform } from 'store/utils/ok';
 
 export class AppParamsStore extends BaseAppParamsStore {
   // базовые параметры вк миниаппа
@@ -39,12 +36,13 @@ export class AppParamsStore extends BaseAppParamsStore {
     this.scope = findGetParameter('vk_access_token_settings');
     this.groupId = findGetParameter('group_id');
     this.viewerGroupRole = findGetParameter('vk_viewer_group_role');
-    this.platform = (findGetParameter('vk_platform') ?? 'desktop_web') as PlatformType;
     this.isOdr = findGetParameter('odr_enabled') === '1';
 
     this.isOk = findGetParameter('vk_client') === 'ok';
 
-    const deviceInfo = this.isOk ? checkOkPlatform(this.platform) : checkVkPlatform(this.platform);
+    this.platform = 'mobile_iphone' as PlatformType;
+
+    const deviceInfo = checkVkPlatform(this.platform);
 
     if (deviceInfo) {
       this.isMobile = deviceInfo.isMobile;
@@ -56,24 +54,6 @@ export class AppParamsStore extends BaseAppParamsStore {
       this.isIos = false;
       this.isAndroid = false;
       this.isMvk = false;
-    }
-
-    if (isMaxShell()) {
-      const maxUserId = getMaxWebApp()?.initDataUnsafe?.user?.id;
-
-      if (maxUserId != null && !Number.isNaN(Number(maxUserId))) {
-        this.userId = Number(maxUserId);
-      }
-
-      this.platform = 'mobile_iphone' as PlatformType;
-      const maxDevice = checkVkPlatform(this.platform);
-
-      if (maxDevice) {
-        this.isMobile = maxDevice.isMobile;
-        this.isIos = maxDevice.isIos;
-        this.isAndroid = maxDevice.isAndroid;
-        this.isMvk = maxDevice.isMvk;
-      }
     }
 
     makeObservable<this>(this, {
