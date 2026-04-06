@@ -28,7 +28,7 @@ import tsConfig from './tsconfig.json';
 
 const SRC_PATH = path.resolve(__dirname, 'src');
 
-const PUBLIC_PATH = path.resolve(__dirname, 'public');
+const BUILD_DIR = path.resolve(__dirname, 'build');
 
 const buildFilePath = (entryPath: string, filename: string) =>
   path.join('static', entryPath, filename);
@@ -213,7 +213,7 @@ const getProdPlugins = (): (WebpackPluginInstance | boolean | '')[] => [
       org: SENTRY_ORG,
       project: SENTRY_PROJECT,
       release: `${CI_COMMIT_SHORT_SHA}${IS_ODR ? '-odr' : ''}`,
-      include: './public',
+      include: './build',
       ignore: ['node_modules', 'webpack.config.js'],
       cleanArtifacts: true,
       debug: true,
@@ -260,7 +260,7 @@ const getPlugins = (): WebpackPluginInstance[] =>
       patterns: [
         {
           from: path.join(SRC_PATH, 'static'),
-          to: path.join(PUBLIC_PATH, 'static'),
+          to: path.join(BUILD_DIR, 'static'),
           noErrorOnMissing: true,
         },
       ],
@@ -332,7 +332,7 @@ const config: Configuration = {
   mode: IS_PROD ? 'production' : 'development',
   devtool: IS_PROD ? 'hidden-source-map' : 'source-map',
   output: {
-    path: PUBLIC_PATH,
+    path: BUILD_DIR,
     publicPath: IS_ODR ? './' : '/',
     filename: buildFilePath('js', '[name].[contenthash:8].js'),
   },

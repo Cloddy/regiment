@@ -6,9 +6,8 @@ import { type AppParamsStore } from 'store/globals/appParams';
 const odrFixFilename = (stackFrame: StackFrame) => {
   if (stackFrame.filename) {
     stackFrame.filename = `~${stackFrame.filename.replace(
-      // отправляем название файла и путь до него после папки public
-      // чтобы правильно определились sourcemap к файлу
-      /^.+public/g,
+      // путь после каталога сборки (public | build), чтобы совпали sourcemap
+      /^.+\/(?:public|build)(?=\/|$)/,
       ''
     )}`;
   }
