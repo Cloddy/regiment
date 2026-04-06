@@ -237,6 +237,7 @@ const getPlugins = (): WebpackPluginInstance[] =>
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         API_URL: JSON.stringify(process.env.API_URL),
         SENTRY_DSN: JSON.stringify(process.env.SENTRY_DSN),
+        USE_MOCKS: JSON.stringify(process.env.USE_MOCKS ?? ''),
       },
     }),
     new HtmlWebpackPlugin({

@@ -2,7 +2,8 @@ import { FieldModel, ListModel } from '@ktsstudio/mediaproject-stores';
 import { makeAutoObservable } from 'mobx';
 
 import { ENDPOINTS } from 'config/api';
-import { createHero } from 'entities/hero';
+import { USE_MOCKS } from 'config/env';
+import { createHero, MOCK_HEROES } from 'entities/hero';
 import { IGlobalStore } from 'store/interfaces';
 import { ApiRequest } from 'store/models/ApiRequest';
 import { Form } from 'store/models/Form';
@@ -57,6 +58,21 @@ export class HeroesStore implements IGlobalStore {
       this._skipFirstHeroesLoad.changeValue(false);
 
       return false;
+    }
+
+    if (USE_MOCKS) {
+      void this.rootStore.statsStore.sendViewHeroes(MOCK_HEROES.length);
+
+      this._forms.addEntities({
+        entities: MOCK_HEROES.map(createHero),
+        isInitial: true,
+      });
+
+      if (!this.hasAtLeastOneHero) {
+        this._skipFirstHeroesLoad.changeValue(false);
+      }
+
+      return true;
     }
 
     const { data, isError } = await this._request.fetch();

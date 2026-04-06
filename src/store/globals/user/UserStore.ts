@@ -2,9 +2,10 @@ import { FieldModel } from '@ktsstudio/mediaproject-stores';
 import { computed, makeObservable } from 'mobx';
 
 import { ENDPOINTS } from 'config/api';
+import { USE_MOCKS } from 'config/env';
 import { FederalDistrictEnum } from 'config/federalDistricts';
 import { SnackbarMessageGoalsEnum } from 'config/snackbars';
-import { UserServer } from 'entities/user';
+import { MOCK_USER, UserServer } from 'entities/user';
 import { DefaultResponse } from 'store/globals/api/types';
 import { type RootStoreType } from 'store/globals/root';
 import { type IGlobalStore } from 'store/interfaces';
@@ -54,6 +55,12 @@ export class UserStore implements IGlobalStore {
   }
 
   readonly init = async (): Promise<boolean> => {
+    if (USE_MOCKS) {
+      this._user.changeValue(MOCK_USER);
+
+      return true;
+    }
+
     const response = await this._auth();
 
     if (response.isError) {
@@ -97,6 +104,10 @@ export class UserStore implements IGlobalStore {
   };
 
   refreshAuth = async (isDuble = false): Promise<DefaultResponse | undefined> => {
+    if (USE_MOCKS) {
+      return;
+    }
+
     // console.log('skipRefresh', this._requests.refresh.skipRefresh);
     if (this._requests.refresh.skipRefresh) {
       return;
